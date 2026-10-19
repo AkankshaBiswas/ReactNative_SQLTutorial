@@ -74,7 +74,11 @@ export default function App() {
       console.log("Failed to fetch items", err);
     }
   };
-
+const startEdit = (item: Item) => {
+    setEditingId(item.id);
+    setName(item.name);
+    setQuantity(String(item.quantity));
+  };
   /**
    * Save Item Function
    *
@@ -89,24 +93,23 @@ export default function App() {
    * - Reload items to show the new entry
    * - Clear the form fields for the next entry
    */
-  const saveItem = async () => {
-    // Validate name is not empty or just whitespace
+  const saveOrUpdate = async () => {
     if (!name.trim()) return;
-
-    // Validate quantity is a valid number
     const parsedQuantity = parseInt(quantity, 10);
     if (Number.isNaN(parsedQuantity)) return;
 
     try {
-      await insertItem(db, name, parsedQuantity);
-      await loadItems(); // Refresh the list to show the new item
-
-      // Clear form fields
+      if (editingId === null) {
+        await insertItem(db, name.trim(), parsedQuantity);
+      } else {
+        await updateItem(db, editingId, name.trim(), parsedQuantity);
+      }
+      await loadItems();
       setName("");
       setQuantity("");
+      setEditingId(null);
     } catch (err) {
-      console.log("Failed to save item");
-      console.log(err);
+      console.log("Failed to save/update item", err);
     }
   };
 
@@ -141,7 +144,7 @@ export default function App() {
       */}
       <Button
         title={editingId === null ? "Save Item" : "Update Item"}
-        onPress={saveItem}
+        onPress={saveOrUpdate}
       />
       <FlatList
         style={styles.list}
@@ -158,7 +161,7 @@ export default function App() {
           />
         )}
         renderItem={({ item }) => (
-          <ItemRow name={item.name} quantity={item.quantity} />
+        
         )}
         ListEmptyComponent={
           <Text style={{ textAlign: "center", marginTop: 24, color: "#888" }}>

@@ -1,4 +1,5 @@
 import { type SQLiteDatabase } from 'expo-sqlite';
+//only type script 
 
 // NOTE - this file is a .ts instead of a .tsx because it ONLY has
 // typescript within it. The other files also have RN components (like <View>), 
