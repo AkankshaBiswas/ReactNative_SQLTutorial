@@ -5,9 +5,10 @@ import {
   TouchableOpacity,
   View,
   Alert,
+  TouchableHighlight,
   
 } from "react-native";
-import MaterialIcons from "@react-native-vector-icons/material-icons";
+// import MaterialIcons from "@react-native-vector-icons/material-icons";
 
 type Props = {
   name: string;
@@ -26,9 +27,12 @@ const ItemRow: React.FC<Props> = ({ name, quantity, onEdit, onDelete,   }) => {
           onPress={onEdit}
           accessibilityRole="button"
           accessibilityLabel={`Edit ${name}`}
-          style={styles.iconButton}
+          style={styles.iconButton} 
         >
-          <MaterialIcons name="edit" size={24} color="#007BFF" />
+          <TouchableHighlight>
+            
+          </TouchableHighlight>
+
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -37,7 +41,7 @@ const ItemRow: React.FC<Props> = ({ name, quantity, onEdit, onDelete,   }) => {
           accessibilityLabel={`Delete ${name}`}
           style={styles.iconButton}
         >
-          <MaterialIcons name="delete" size={24} color="#D32F2F" />
+
         </TouchableOpacity>
       </View>
 
@@ -65,6 +69,7 @@ const styles = StyleSheet.create({
   },
   info: { flexShrink: 1 },
   name: { fontSize: 16, fontWeight: "600" },
+
   qty: { fontSize: 14, color: "#666", marginTop: 2 },
   actions: { flexDirection: "row", gap: 8 },
   iconButton: {
