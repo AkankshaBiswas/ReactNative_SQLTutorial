@@ -53,7 +53,7 @@ export const initDb = async (db: SQLiteDatabase): Promise<void> => {
  * The values in the array [name, quantity] replace the ? placeholders in order.
  * 
  * Example: If name="Apple" and quantity=5, the query becomes:
- * INSERT INTO items (name, quantity) VALUES ('Apple', 5);
+ * INSERT INTO items (name, quantity) VALUES ('Apple', 5); 
  * 
  * @param db - The SQLite database instance
  * @param name - The name of the item to insert
